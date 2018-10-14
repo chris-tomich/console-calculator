@@ -8,8 +8,8 @@ import (
 	"github.com/pkg/errors"
 )
 
-// NewConsole will create a new Console object.
-func NewConsole() *Console {
+// New will create a new Console object.
+func New() *Console {
 	console := &Console{}
 	console.reader = bufio.NewReader(os.Stdin)
 
