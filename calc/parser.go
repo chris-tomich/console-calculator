@@ -1,6 +1,8 @@
 package calc
 
-import "fmt"
+import (
+	"strconv"
+)
 
 // NewParser will create a new calculator parser.
 func NewParser() *Parser {
@@ -21,15 +23,25 @@ func (p *Parser) Evaluate(input string) (string, error) {
 
 	seperatedFields := FieldsFuncWithSeparator(input, SeparatorTester("/*-+"), SeparatorTester(" "))
 
+	ops := make([]Operation, 0, 10)
+
 	for i, field := range seperatedFields {
 		switch (field) {
-		case '+':
-		case '-':
-		case '*':
-		case '/':
+		case "+":
+			append(ops, &Addition{})
+		case "-":
+			append(ops, &Subtraction{})
+		case "*":
+			append(ops, &Multiplication{})
+		case "/":
+			append(ops, &Division{})
 		default:
-			
+			append(ops, &Constant{ A: strconv.Atoi(field) })
 		}
+	}
+
+	for _, f := range ops {
+		println(f)
 	}
 
 	return "completed", nil

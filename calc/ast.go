@@ -21,43 +21,43 @@ type InfixOperation interface {
 var _ InfixOperation = &Addition{}
 
 type Addition struct {
-	A int
-	B int
+	A Operation
+	B Operation
 }
 
 func (op *Addition) Evaluate() int {
-	return op.A + op.B
+	return op.A.Evaluate() + op.B.Evaluate()
 }
 
 var _ InfixOperation = &Subtraction{}
 
 type Subtraction struct {
-	A int
-	B int
+	A Operation
+	B Operation
 }
 
 func (op *Subtraction) Evaluate() int {
-	return op.A - op.B
+	return op.A.Evaluate() - op.B.Evaluate()
 }
 
 var _ InfixOperation = &Multiplication{}
 
 type Multiplication struct {
-	A int
-	B int
+	A Operation
+	B Operation
 }
 
 func (op *Multiplication) Evaluate() int {
-	return op.A * op.B
+	return op.A.Evaluate() * op.B.Evaluate()
 }
 
 var _ InfixOperation = &Division{}
 
 type Division struct {
-	A int
-	B int
+	A Operation
+	B Operation
 }
 
 func (op *Division) Evaluate() int {
-	return op.A / op.B
+	return op.A.Evaluate() / op.B.Evaluate()
 }
