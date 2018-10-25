@@ -21,8 +21,15 @@ func (p *Parser) Evaluate(input string) (string, error) {
 
 	seperatedFields := FieldsFuncWithSeparator(input, SeparatorTester("/*-+"), SeparatorTester(" "))
 
-	for _, field := range seperatedFields {
-		fmt.Println("'" + field + "'")
+	for i, field := range seperatedFields {
+		switch (field) {
+		case '+':
+		case '-':
+		case '*':
+		case '/':
+		default:
+			
+		}
 	}
 
 	return "completed", nil
