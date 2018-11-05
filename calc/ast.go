@@ -1,7 +1,12 @@
 package calc
 
+import (
+	"strconv"
+)
+
 type Operation interface {
 	Evaluate() int
+	Value() string
 }
 
 var _ Operation = &Constant{}
@@ -14,8 +19,13 @@ func (op *Constant) Evaluate() int {
 	return op.A
 }
 
+func (op *Constant) Value() string {
+	return strconv.Itoa(op.A)
+}
+
 type InfixOperation interface {
 	Evaluate() int
+	Value() string
 }
 
 var _ InfixOperation = &Addition{}
@@ -29,6 +39,10 @@ func (op *Addition) Evaluate() int {
 	return op.A.Evaluate() + op.B.Evaluate()
 }
 
+func (op *Addition) Value() string {
+	return "+"
+}
+
 var _ InfixOperation = &Subtraction{}
 
 type Subtraction struct {
@@ -38,6 +52,10 @@ type Subtraction struct {
 
 func (op *Subtraction) Evaluate() int {
 	return op.A.Evaluate() - op.B.Evaluate()
+}
+
+func (op *Subtraction) Value() string {
+	return "-"
 }
 
 var _ InfixOperation = &Multiplication{}
@@ -51,6 +69,10 @@ func (op *Multiplication) Evaluate() int {
 	return op.A.Evaluate() * op.B.Evaluate()
 }
 
+func (op *Multiplication) Value() string {
+	return "*"
+}
+
 var _ InfixOperation = &Division{}
 
 type Division struct {
@@ -60,4 +82,8 @@ type Division struct {
 
 func (op *Division) Evaluate() int {
 	return op.A.Evaluate() / op.B.Evaluate()
+}
+
+func (op *Division) Value() string {
+	return "/"
 }

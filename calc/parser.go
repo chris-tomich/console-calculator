@@ -25,23 +25,29 @@ func (p *Parser) Evaluate(input string) (string, error) {
 
 	ops := make([]Operation, 0, 10)
 
-	for i, field := range seperatedFields {
-		switch (field) {
+	for _, field := range seperatedFields {
+		switch field {
 		case "+":
-			append(ops, &Addition{})
+			ops = append(ops, &Addition{})
 		case "-":
-			append(ops, &Subtraction{})
+			ops = append(ops, &Subtraction{})
 		case "*":
-			append(ops, &Multiplication{})
+			ops = append(ops, &Multiplication{})
 		case "/":
-			append(ops, &Division{})
+			ops = append(ops, &Division{})
 		default:
-			append(ops, &Constant{ A: strconv.Atoi(field) })
+			c, err := strconv.Atoi(field)
+
+			if err != nil {
+				return "", err
+			}
+
+			ops = append(ops, &Constant{A: c})
 		}
 	}
 
 	for _, f := range ops {
-		println(f)
+		println(f.Value())
 	}
 
 	return "completed", nil
